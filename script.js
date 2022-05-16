@@ -48,9 +48,10 @@ function consoleBooks(bookArray) {
 
 function startMenuManager(err, result){
   if (result.selection === '1') {
-    insertBook();   
+    insertPublication();   
   } else if (result.selection === '2'){
     for (const book of bookArray) {
+      console.log('Lista dei libri: ')
       consoleBooks(bookArray);
     }
 
@@ -108,6 +109,7 @@ function insertBook() {
 }
 
 
+
 function insertBookManger(err, result){
 
 
@@ -121,4 +123,85 @@ function insertBookManger(err, result){
   startMenu();
 
 console.log(bookArray)
+}
+
+
+function insertPublication() {
+
+  console.log('Seleziona 1 per le riviste e 2 per i libri, 3 per uscire.');
+  console.log('1)  Aggiungi una rivista');
+  console.log('2)  Aggiungi un libro');
+  console.log('3)  Esci');
+
+  prompt.start();
+
+  const schema = {
+      properties: {
+        selection: {
+          description: 'Seleziona una delle opzioni',
+        }
+      }
+    }
+    prompt.get(schema, startInsertPubbliction);
+
+  }
+
+
+  function startInsertPubbliction() {
+    if (result.selection === 1) {
+      insertMagazine();
+    } else if (result.selection === 2) {
+      insertBook();
+    } else {
+      startMenu();
+    }
+  }
+
+
+  const magazineArray = [];
+
+  function insertMagazineManager(err, result) {
+    const magazine = new model.Magazine(result.title, result.editor, result.periodicyty, result.realease, 
+      result.type, result.price,result.copies, result.discount, result.releaseDate)
+    magazineArray.push(magazine);
+    startMenu();
+}
+
+
+function insertMagazine() {
+
+
+  const schema = {
+        properties: {
+            title: {
+                description: 'inserisici il titolo'
+            },
+            editor: {
+                description: 'inserisici l editore'
+            },
+            periodicyty: {
+                description: 'Ogni quanto esce? '
+            },
+            realease: {
+                description: 'inserisici la data di rilascio del primo numero'
+            },
+            type: {
+                description: 'inserisici il genere'
+            },
+            price: {
+                description: 'inserisici il prezzo'
+            },
+            copies: {
+                description: 'inserisici il numero di copie'
+            },
+            discount: {
+              description: 'inserisci lo sconto'
+            },
+            releaseDate: {
+              description: 'inserisici la data di rilascio'
+    }
+  }
+  };
+  prompt.get(schema, insertMagazineManager);
+  
 }
