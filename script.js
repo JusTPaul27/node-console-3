@@ -39,6 +39,11 @@ function startMenu() {
 }
 
 
+function consoleBooks(bookArray) {
+  for (const book of bookArray) {
+      console.log(book.toString())
+  }
+}
 
 
 function startMenuManager(err, result){
@@ -46,8 +51,7 @@ function startMenuManager(err, result){
     insertBook();   
   } else if (result.selection === '2'){
     for (const book of bookArray) {
-        toString();
-        console.log(book);
+      consoleBooks(bookArray);
     }
 
   } else if (result.selection === '3') {
@@ -118,7 +122,3 @@ function insertBookManger(err, result){
 
 console.log(bookArray)
 }
-
-
-
-
